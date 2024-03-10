@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+     function TreeNode(val, left, right) {
+      this.val = (val===undefined ? 0 : val)
+      this.left = (left===undefined ? null : left)
+      this.right = (right===undefined ? null : right)
+  }
+    var inorderTraversal = function(root, res = []) {
+    const stack = [];
+    let cur = root;
+    while(stack.length || cur) {
+        if(cur) {
+            stack.push(cur);
+            // 左
+            cur = cur.left;
+        } else {
+            // --> 弹出 中
+            cur = stack.pop();
+            res.push(cur.val); 
+            // 右
+            cur = cur.right;
+        }
+    };
+    return res;
+};
+let root = new TreeNode(1, 
+                new TreeNode(2, 
+                    new TreeNode(3), 
+                    new TreeNode(4)
+                ), 
+                new TreeNode(5)
+            );
+debugger
+let a = inorderTraversal(root);
+console.log(a)
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    function TreeNode(val, left, right) {
+      this.val = (val===undefined ? 0 : val)
+      this.left = (left===undefined ? null : left)
+      this.right = (right===undefined ? null : right)
+  }
+  var levelOrder = function(root) {
+    let queue = []
+    let res = []
+    if(root) queue.push(root)
+    while(queue.length){
+        let len = queue.length
+        let cur = []
+        while(len--){
+            let node = queue.shift()
+            cur.push(node.val)
+            for(let child of node.children){
+                child && queue.push(child)
+            }            
+        }
+        res.push(cur)
+    }
+    return res
+};
+
+
+    let root = new TreeNode(1, 
+                new TreeNode(2, 
+                    new TreeNode(3), 
+                    new TreeNode(4)
+                ), 
+                new TreeNode(5)
+            );
+debugger
+let a = levelOrder(root);
+console.log(a)
+
+</script>
+</body>
+</html>
