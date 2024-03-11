@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = [
+            {a:1,b:2,c:1},
+            {a:2,b:4,c:2},
+            {a:3,b:1,c:3},
+            {a:4,b:5,c:4}
+        ]
+        // 冒泡排序（n^2),因为排序的都堆积在数组末尾，所以第二层循环处理前面未排好序的
+        function bubbleSortByB(arr) {
+            let len = arr.length
+            for(let i = 0;i<len-1;i++){
+                for(let j = 0;j<len-1-i;j++){
+                    if(arr[j].b>arr[j+1].b){
+                        let temp = arr[j]
+                        arr[j] = arr[j+1]
+                        arr[j+1] = temp
+                    }   
+                }
+            }
+        }
+        bubbleSortByB(arr);
+        console.log(arr);
+        //快排(nlogn)
+        function quickSort(arr, l, r) {
+            if(arr.length>1){
+                let index = partition(arr,l,r)
+                if(l<index-1){// 排序左半边
+                    quickSort(arr,l,index-1)
+                }
+                if(index<r){// 排序右半边
+                    quickSort(arr,index,r)
+                }
+            }
+        }
+        function partition(arr, l, r) {
+            let mid = arr[Math.floor((l+r)/2)].b
+            while(l<r){
+                while(arr[l].b<mid){
+                    l++
+                }
+                while(arr[r].b>mid){
+                    r--
+                }
+                if(l<=r){
+                    [arr[l], arr[r]] = [arr[r], arr[l]]
+                    l++
+                    r--
+                }
+            }
+            return l
+        }
+        quickSort(arr, 0, arr.length - 1);
+        console.log(arr);
+
+    </script>
+</body>
+</html>

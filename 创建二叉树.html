@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function TreeNode(id, pid, name) {
+            this.id = id
+            this.pid = (pid===undefined ? null : pid)
+            this.name = (name===undefined ? null : name)
+            this.children = []
+        }
+        let arr = [
+            {name:"中国",id:0},
+            {name:"广东",id:1,pid:0},
+            {name:"深圳",id:2,pid:1},
+            {name:"广州",id:3,pid:2},
+        ]
+        // 1.每个字典转换为树节点，map映射id和节点
+        // 2.判断id与pid的对应关系，添加到children中
+        function arrayToTree(arr) {
+            let nodeMap = new Map()
+            let root = null
+            arr.forEach(item => {
+                let node = new TreeNode(item.id,item.pid,item.name);
+                nodeMap.set(item.id,node);
+            });
+           arr.forEach(item=>{
+               let node = nodeMap.get(item.id)
+               if(item.pid!==null&&nodeMap.has(item.pid)){
+                  let parentNode = nodeMap.get(item.pid)
+                  parentNode.children.push(node)
+               }else{
+                root = node
+               }
+           })
+           return root
+        };
+       let tree = arrayToTree(arr)
+       console.log(tree)
+    </script>
+</body>
+</html>
